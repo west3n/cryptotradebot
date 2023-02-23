@@ -5,7 +5,7 @@ db = sqlite3.connect('profile.db')
 cur = db.cursor()
 
 
-async def connect():
+async def connect_main():
     query = """
         CREATE TABLE IF NOT EXISTS user (
             user_id INTEGER NOT NULL UNIQUE,
@@ -55,4 +55,3 @@ async def subscription(user_id: int, subscribe: str, subscribe_start: str, subsc
     db.commit()
     num_days = await days_between_dates(subscribe_start, subscribe_finish)
     return num_days
-

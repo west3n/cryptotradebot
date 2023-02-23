@@ -2,7 +2,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 import config.config as cfg
-import database.sqlite.create as sqlite
+from database.sqlite import user, user_exchange
 import asyncio
 import logging
 
@@ -18,9 +18,11 @@ async def main():
     dp = Dispatcher(bot, storage=storage)
     cfg.register_handlers(dp)
 
-    await sqlite.connect()
+    await user.connect_main()
+    await user_exchange.connect_exchange()
     await cfg.set_default_commands(dp)
     await dp.start_polling()
+
 
 if __name__ == "__main__":
     asyncio.run(main())

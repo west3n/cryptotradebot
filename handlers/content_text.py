@@ -1,15 +1,16 @@
 from aiogram import Dispatcher, types
 from keyboards import inline
-from database.sqlite import create
+from database.sqlite import user as db
+from database.sqlite import user_exchange
 
 
 async def bot_account(msg: types.Message):
     user_id = msg.from_user.id
     await msg.delete()
-    user = await create.status(user_id)
+    user = await db.status(user_id)
 
-    if user[3] is not None:
-        days = await create.days_between_dates(user[2], user[3])
+    if user is not None:
+        days = await db.days_between_dates(user[2], user[3])
         await msg.answer(text=f'Вся необходимая информация о вашем профиле\n'
                               f'\n👁‍🗨 ID: {user_id}'
                               f'\n👁‍🗨 Активные подписки: {user[1]} до {user[3]} ({days} дней)'
@@ -57,8 +58,16 @@ async def bot_partnership_program(msg: types.Message):
 
 async def bot_orders(msg: types.Message):
     await msg.delete()
-    await msg.answer(f"У вас нет активных ордеров!\n\n"
-                     f"Для начала подключите API.",
+    user_id = msg.from_user.id
+    user = await user_exchange.exc_api(user_id)
+
+    if user:
+        formatted_data = "<b>Список подключенных бирж</b>:\n\n" + "\n".join([f"{str(exc).capitalize()} - <em>API_KEY: {api_key}</em>" for exc, api_key in user])
+        await msg.answer(formatted_data)
+    else:
+        await msg.answer(f"У вас нет активных ордеров!")
+
+    await msg.answer('Для подключения бирж нажмите кнопку.',
                      reply_markup=inline.connect_api())
 
 
@@ -72,5 +81,5 @@ def register(dp: Dispatcher):
     dp.register_message_handler(bot_help, text='Помощь', state='*')
     dp.register_message_handler(bot_trading, text='Торговля', state='*')
     dp.register_message_handler(bot_partnership_program, text='Партнерская программа', state='*')
-    dp.register_message_handler(bot_orders, text='Ордера', state='*')
+    dp.register_message_handler(bot_orders, text='Биржи', state='*')
     dp.register_message_handler(bot_notification_settings, text='Настройка уведомлений', state='*')

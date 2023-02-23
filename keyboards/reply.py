@@ -15,3 +15,11 @@ def start_keyboard():
 
     ], resize_keyboard=True)
     return keyboard
+
+
+def start_keyboard_new_user():
+    keyboard = ReplyKeyboardMarkup([
+        [KeyboardButton(text="Аккаунт"),
+         KeyboardButton(text="Помощь")]
+        ], resize_keyboard=True)
+    return keyboard

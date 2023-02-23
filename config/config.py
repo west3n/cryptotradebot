@@ -12,6 +12,8 @@ from handlers.referrals import register as reg_referrals
 from handlers.alert import register as reg_alert
 from handlers.orders import register as reg_orders
 from handlers.notifications import register as reg_notifications
+
+
 bot_token = config("BOT_TOKEN")
 logger = logging.getLogger(__name__)
 
