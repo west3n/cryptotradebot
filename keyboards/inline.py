@@ -3,7 +3,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 def subscribe() -> InlineKeyboardMarkup:
     kb = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton('Управление подписками', callback_data='subscribe')]
+        [InlineKeyboardButton('Управление подпиской', callback_data='subscribe')]
     ])
     return kb
 
@@ -11,6 +11,14 @@ def subscribe() -> InlineKeyboardMarkup:
 def kb_subscribe_description() -> InlineKeyboardMarkup:
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton('Бесплатное тестирование', callback_data='free_sub')],
+        [InlineKeyboardButton('Оплатить подписку Basic', callback_data='pay_basic')],
+        [InlineKeyboardButton('Оплатить подписку Advanced', callback_data='pay_advanced')]
+    ])
+    return kb
+
+
+def kb_subscribe_old() -> InlineKeyboardMarkup:
+    kb = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton('Оплатить подписку Basic', callback_data='pay_basic')],
         [InlineKeyboardButton('Оплатить подписку Advanced', callback_data='pay_advanced')]
     ])
@@ -104,4 +112,43 @@ def notification_settings() -> InlineKeyboardMarkup:
         [InlineKeyboardButton("🔕 Уведомление 7", callback_data="btn7")],
         [InlineKeyboardButton("Скрыть все уведомления", callback_data="hide_all_buttons")]
     ])
+    return kb
+
+
+def api_main() -> InlineKeyboardMarkup:
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton('Basic', callback_data='api_basic')],
+        [InlineKeyboardButton('Advanced', callback_data='api_advanced')]
+    ])
+    return kb
+
+
+def api_main_basic() -> InlineKeyboardMarkup:
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton('Bybit', callback_data='bybit')],
+        [InlineKeyboardButton('Bittrex', callback_data='bittrex')],
+        [InlineKeyboardButton('Huobi', callback_data='huobi')],
+        [InlineKeyboardButton('Poloniex (в разработке)', callback_data='poloniex')],
+        [InlineKeyboardButton('Exmo (в разработке)', callback_data='exmo')],
+        [InlineKeyboardButton('Kucoin (в разработке)', callback_data='kucoin')],
+        [InlineKeyboardButton('OKX (в разработке)', callback_data='okx')],
+        [InlineKeyboardButton('MXC (в разработке)', callback_data='mxc')],
+        [InlineKeyboardButton('Gate (в разработке)', callback_data='gate')],
+        [InlineKeyboardButton('HitBTC (в разработке)', callback_data='hitbtc')],
+
+    ])
+
+    return kb
+
+
+def api_main_adv() -> InlineKeyboardMarkup:
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton('Binance (в разработке)', callback_data='binance')],
+        [InlineKeyboardButton('Coinbase (в разработке)', callback_data='coinbase')],
+        [InlineKeyboardButton('Kraken (в разработке)', callback_data='kraken')],
+        [InlineKeyboardButton('Kukoin Futures (в разработке)', callback_data='kukoin_futures')],
+        [InlineKeyboardButton('Bitfinex (в разработке)', callback_data='bitfinex')],
+
+    ])
+
     return kb

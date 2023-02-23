@@ -1,5 +1,5 @@
 from aiogram import Dispatcher, types
-from keyboards import inline
+from keyboards import inline, reply
 from datetime import datetime, timedelta
 import database.sqlite.user as sqlite
 
@@ -48,7 +48,8 @@ async def handle_callback_query(call: types.CallbackQuery):
 
     if call.data == 'free_sub':
         await call.message.delete()
-        await call.message.answer('Пробная подписка активирована.')
+        await call.message.answer('Пробная подписка активирована.',
+                                  reply_markup=reply.start_keyboard())
         subscribe = 'Free'
         subscribe_start = datetime.now().strftime("%d.%m.%Y")
         subscribe_finish = (datetime.now() + timedelta(days=14)).strftime("%d.%m.%Y")

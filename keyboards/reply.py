@@ -9,7 +9,7 @@ def start_keyboard():
          KeyboardButton(text="Торговля")],
 
         [KeyboardButton(text="Партнерская программа"),
-         KeyboardButton(text="Ордера")],
+         KeyboardButton(text="Биржи")],
 
         [KeyboardButton(text="Настройка уведомлений")],
 
