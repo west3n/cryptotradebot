@@ -64,6 +64,7 @@ async def api_step3(msg: types.Message, state: FSMContext):
         await msg.answer('У вас уже есть API этой биржи!')
 
 
+
 def register(dp: Dispatcher):
     dp.register_callback_query_handler(api_main, text='connect_api')
     dp.register_callback_query_handler(api_step1, state=ApiConnector.exc)
