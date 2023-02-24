@@ -60,10 +60,13 @@ async def bot_orders(msg: types.Message):
     await msg.delete()
     user_id = msg.from_user.id
     user = await user_exchange.exc_api(user_id)
-
+    await msg.answer(f'<b>Список подключенных бирж:</b>')
     if user:
-        formatted_data = "<b>Список подключенных бирж</b>:\n\n" + "\n".join([f"{str(exc).capitalize()} - <em>API_KEY: {api_key}</em>" for exc, api_key in user])
-        await msg.answer(formatted_data)
+        for x in user:
+            await msg.answer(f'<b>Биржа</b>: {str(x[0]).capitalize()}\n'
+                             f'<b>API_KEY:</b> {x[1]}',
+                             reply_markup=inline.cmd_more(data=f'{x[0]}_api'))
+
     else:
         await msg.answer(f"У вас нет активных ордеров!")
 

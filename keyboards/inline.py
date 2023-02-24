@@ -152,3 +152,18 @@ def api_main_adv() -> InlineKeyboardMarkup:
     ])
 
     return kb
+
+
+def cmd_more(data) -> InlineKeyboardMarkup:
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton('Подробнее', callback_data=data)]
+    ])
+
+    return kb
+
+
+def cmd_close(data) -> InlineKeyboardMarkup:
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton('Закрыть активные ордера', callback_data=data)]
+    ])
+    return kb

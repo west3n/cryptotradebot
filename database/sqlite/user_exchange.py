@@ -32,3 +32,9 @@ async def status(user_id):
 async def exc_api(user_id):
     stat = cur.execute("""SELECT exc, api_key FROM user_exchange WHERE user_id=?""", (user_id,)).fetchall()
     return stat
+
+
+async def get_api(user_id, exc):
+    stat = cur.execute("""SELECT api_key, api_secret FROM user_exchange WHERE user_id=? AND exc=?""",
+                       (user_id, exc,)).fetchone()
+    return stat
