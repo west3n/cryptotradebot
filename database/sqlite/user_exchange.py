@@ -38,3 +38,8 @@ async def get_api(user_id, exc):
     stat = cur.execute("""SELECT api_key, api_secret FROM user_exchange WHERE user_id=? AND exc=?""",
                        (user_id, exc,)).fetchone()
     return stat
+
+
+async def delete_api(user_id, exc):
+    cur.execute("""DELETE FROM user_exchange WHERE user_id=? AND exc=?""", (user_id, exc,))
+    db.commit()

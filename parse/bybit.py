@@ -34,7 +34,7 @@ def close_bybit(stat):
     cancel_all_orders = session_auth.cancel_all_active_orders(symbol="BTCUSDT")
     try:
         cao = cancel_all_orders['result']
-    except:
+    except Exception:
         cao = 'Нет открытых ордеров'
 
     return cao
