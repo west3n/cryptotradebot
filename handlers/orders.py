@@ -1,5 +1,6 @@
 import sqlite3
 
+import pybit.exceptions
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 
@@ -76,6 +77,13 @@ async def more_parse(call: types.CallbackQuery):
                               f'TP/SL: {x[1]}/{x[2]}\n',
                               reply_markup=inline.cmd_close(data=f'{exc}_close'))
 
+async def delete_api(call: types.CallbackQuery):
+    await call.message.delete()
+    exc = call.data.split("_")[0]
+    user_id = call.from_user.id
+    await user_exchange.delete_api(user_id, exc)
+    await call.message.answer(f'API_KEY {str(exc).capitalize()} успешно удален')
+
 
 async def exc_close(call: types.CallbackQuery):
     await call.message.delete()
@@ -85,9 +93,9 @@ async def exc_close(call: types.CallbackQuery):
     x = bybit.close_bybit(stat)
     await call.message.answer(f'{x}')
 
-
 def register(dp: Dispatcher):
     for data in callback_data:
+        dp.register_callback_query_handler(delete_api, text=f'{data}_delete_api')
         dp.register_callback_query_handler(more_parse, text=f'{data}_api')
         dp.register_callback_query_handler(exc_close, text=f'{data}_close')
     dp.register_callback_query_handler(api_main, text='connect_api')

@@ -1,4 +1,4 @@
-from aiogram.types.reply_keyboard import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from aiogram.types.reply_keyboard import KeyboardButton, ReplyKeyboardMarkup
 
 
 def start_keyboard():

@@ -8,7 +8,7 @@ def connect_bybit(stat):
         api_secret=stat[1]
     )
     values = ["ADA", "BTC", "EOS", "USDT", "SOL", "BIT", "MANA", "ETH", "XRP", "DOT", "LTC"]
-    lol=''
+    lol = ''
     for x in values:
         result = session_auth.get_wallet_balance(coin=x)
         wallet_balance = result["result"][x]["wallet_balance"]

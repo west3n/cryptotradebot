@@ -127,7 +127,7 @@ def api_main_basic() -> InlineKeyboardMarkup:
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton('Bybit', callback_data='bybit')],
         [InlineKeyboardButton('Bittrex', callback_data='bittrex')],
-        [InlineKeyboardButton('Huobi', callback_data='huobi')],
+        [InlineKeyboardButton('Huobi (в разработке)', callback_data='huobi')],
         [InlineKeyboardButton('Poloniex (в разработке)', callback_data='poloniex')],
         [InlineKeyboardButton('Exmo (в разработке)', callback_data='exmo')],
         [InlineKeyboardButton('Kucoin (в разработке)', callback_data='kucoin')],
@@ -166,4 +166,12 @@ def cmd_close(data) -> InlineKeyboardMarkup:
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton('Закрыть активные ордера', callback_data=data)]
     ])
+    return kb
+
+
+def delete_api_key(data) -> InlineKeyboardMarkup:
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(f'Удалить API_KEY {str(data).split("_")[0].capitalize()}', callback_data=data)]
+    ])
+
     return kb

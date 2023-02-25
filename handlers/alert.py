@@ -1,4 +1,4 @@
-from aiogram import Bot, Dispatcher, types
+from aiogram import Dispatcher, types
 
 BUTTON = [
     '/start',
@@ -18,4 +18,5 @@ async def alert(msg: types.Message):
 
 
 def register(dp: Dispatcher):
-    dp.register_message_handler(alert, content_types=['text', 'audio', 'photo', 'document', 'voice', 'sticker', 'video', 'location', 'animation'])
+    dp.register_message_handler(alert, content_types=['text', 'audio', 'photo', 'document',
+                                                      'voice', 'sticker', 'video', 'location', 'animation'])
