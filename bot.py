@@ -2,7 +2,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 import config.config as cfg
-from database.sqlite import user, user_exchange
+from database.mysql import user, user_exchange
 import asyncio
 import logging
 

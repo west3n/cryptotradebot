@@ -1,6 +1,6 @@
 from aiogram import Dispatcher, types
 from keyboards import reply
-from database.sqlite import user as db
+from database.mysql import user as db
 
 
 async def bot_start(msg: types.Message):

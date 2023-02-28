@@ -1,12 +1,12 @@
-import sqlite3
-
+import mysql.connector
+from datetime import datetime, timedelta
 import pybit.exceptions
 from aiogram import Dispatcher, types
 from aiogram.dispatcher import FSMContext
 
 from keyboards import inline
 from config.states import ApiConnector
-from database.sqlite import user, user_exchange
+from database.mysql import user, user_exchange
 from parse import bybit, bittrex
 
 
@@ -57,13 +57,25 @@ async def api_step3(msg: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['api_secret'] = msg.text
     user_id = msg.from_user.id
-    try:
+    user_x = await user_exchange.api_key_status(user_id)
+    status = await user.status(user_id)
+    if not user_x and status[1] == 'Free':
+        await msg.delete()
+        subscribe = 'Free'
+        subscribe_start = datetime.now().strftime("%d.%m.%Y")
+        subscribe_finish = (datetime.now() + timedelta(days=14)).strftime("%d.%m.%Y")
+        await user.subscription(user_id, subscribe, subscribe_start, subscribe_finish)
         await user_exchange.add_exchange(user_id, data)
         await msg.answer('Данные успешно сохранены!')
         await state.finish()
-    except sqlite3.IntegrityError:
-        await state.finish()
-        await msg.answer('У вас уже есть API этой биржи!')
+    else:
+        try:
+            await user_exchange.add_exchange(user_id, data)
+            await msg.answer('Данные успешно сохранены!')
+            await state.finish()
+        except mysql.connector.errors.IntegrityError:
+            await state.finish()
+            await msg.answer('У вас уже есть API этой биржи!')
 
 
 async def more_parse(call: types.CallbackQuery):

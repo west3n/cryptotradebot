@@ -1,7 +1,7 @@
 from aiogram import Dispatcher, types
 from keyboards import inline
-from database.sqlite import user as db
-from database.sqlite import user_exchange
+from database.mysql import user as db
+from database.mysql import user_exchange
 
 
 async def bot_account(msg: types.Message):

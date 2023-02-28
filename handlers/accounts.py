@@ -1,13 +1,13 @@
 from aiogram import Dispatcher, types
 from keyboards import inline, reply
 from datetime import datetime, timedelta
-import database.sqlite.user as sqlite
+import database.mysql.user as mysql
 
 
 async def subscribe_description(call: types.CallbackQuery):
     await call.message.delete()
     user_id = call.from_user.id
-    user = await sqlite.status(user_id)
+    user = await mysql.status(user_id)
     if user:
         await call.message.answer(text=f"<b>Цена бота</b>:\n<b>Basic:</b> 139$/месяц\n"
                                        f"<b>Advanced</b>: 379$/месяц\n\n"
@@ -101,7 +101,7 @@ async def handle_callback_query(call: types.CallbackQuery):
         subscribe = 'Advanced'
         subscribe_start = datetime.now().strftime("%d.%m.%Y")
         subscribe_finish = (datetime.now() + timedelta(days=365)).strftime("%d.%m.%Y")
-    await sqlite.subscription(user_id, subscribe, subscribe_start, subscribe_finish)
+    await mysql.subscription(user_id, subscribe, subscribe_start, subscribe_finish)
 
 
 def register(dp: Dispatcher):
